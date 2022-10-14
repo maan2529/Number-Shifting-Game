@@ -59,14 +59,14 @@ int getNum()
 }
 void unique_number(int arr[])
 {
-
+    int n = 15;
     int store;
     int i, j;
 
     srand(time(NULL));
-    for (i = 0; i < 15; i++)
+    for (i = 0; i < n; i++)
     {
-        store = (rand() % 15) + 1; // generating randum number
+        store = (rand() % n) + 1; // generating randum number
         for (j = 0; j < i; j++)
         {
             if (arr[j] == store)
@@ -76,16 +76,18 @@ void unique_number(int arr[])
         }
         (i == j) ? arr[i] = store : i--;
     }
-    arr[15] = 0;
+    arr[n] = 0;
 }
 
 void set_Matrix(int arr[], int u_num[][4])
 {
     int u = 0;
+    int row = 4;
+    int column = 4;
     //########Assigning value in array#######
-    for (int n = 0; n < 4; n++)
+    for (int n = 0; n < column; n++)
     {
-        for (int m = 0; m < 4; m++)
+        for (int m = 0; m < row; m++)
         {
             u_num[n][m] = arr[u++];
         }
@@ -95,11 +97,12 @@ void set_Matrix(int arr[], int u_num[][4])
 void displayMatrix(int u_num[][4])
 {
     // ######## printing matrix ##########
-
+    int row = 4;
+    int column = 4;
     printf(" ---------------------\n"); // Output for matrix star
-    for (int k = 0; k < 4; k++)
+    for (int k = 0; k < column; k++)
     {
-        for (int l = 0; l < 4; l++)
+        for (int l = 0; l < row; l++)
         {
             if (u_num[k][l] == 0)
             {
@@ -126,7 +129,8 @@ void displayMatrix(int u_num[][4])
 int winning(int arr[])
 {
     int i, matNum = 1;
-    for (i = 0; i < 15; i++)
+    int n = 15;
+    for (i = 0; i < n; i++)
     {
         if (arr[i] != matNum)
         {
@@ -134,30 +138,32 @@ int winning(int arr[])
         }
         matNum++;
     }
-    if (i == 15) // condition not require
+    if (i == n) // condition not require
         return 1;
 }
 
 int uparrow(int u_num[][4], int key)
 {
+    int row = 4;
+    int column = 4;
 
     int i, j;
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < column; i++)
     {
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < row; j++)
         {
             if (u_num[i][j] == 0)
                 break;
         }
-        if (j < 4)
+        if (j < row)
             break;
     }
-    if (i < 3)
+    if (i < row - 1)
     {
         swap(&u_num[i][j], &u_num[i + 1][j]);
         return key;
     }
-    else if (i == 3)
+    else if (i == row - 1)
     {
         return key + 1;
     }
@@ -167,14 +173,16 @@ int downarrow(int u_num[][4], int key)
 {
 
     int i, j;
-    for (i = 0; i < 4; i++)
+    int row = 4;
+    int column = 4;
+    for (i = 0; i < column; i++)
     {
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < row; j++)
         {
             if (u_num[i][j] == 0)
                 break;
         }
-        if (j < 4)
+        if (j < row)
             break;
     }
     if (i > 0)
@@ -190,16 +198,17 @@ int downarrow(int u_num[][4], int key)
 
 int rightarrow(int u_num[][4], int key)
 {
-
+    int row = 4;
+    int column = 4;
     int i, j;
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < column; i++)
     {
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < row; j++)
         {
             if (u_num[i][j] == 0)
                 break;
         }
-        if (j < 4)
+        if (j < row)
             break;
     }
     if (j > 0)
@@ -215,24 +224,25 @@ int rightarrow(int u_num[][4], int key)
 
 int leftarrow(int u_num[][4], int key)
 {
-
+    int row = 4;
+    int column = 4;
     int i, j;
-    for (i = 0; i < 4; i++)
+    for (i = 0; i < column; i++)
     {
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < row; j++)
         {
             if (u_num[i][j] == 0)
                 break;
         }
-        if (j < 4)
+        if (j < row)
             break;
     }
-    if (j < 3)
+    if (j < row - 1)
     {
         swap(&u_num[i][j], &u_num[i][j + 1]);
         return key;
     }
-    else if (j == 3)
+    else if (j == row - 1)
     {
         return key + 1;
     }
@@ -248,14 +258,17 @@ void swap(int *a, int *b)
 void winSituation()
 {
     int count = 1;
-    int winSituation[4][4];
+    int row = 4;
+    int column = 4;
+
+    int winSituation[column][row];
     printf(" ---------------------\n");
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < column; i++)
     {
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < row; j++)
         {
             winSituation[i][j] = count;
-            if (count == 16)
+            if (count == row*column)
             {
                 winSituation[i][j] = 0;
             }
@@ -267,7 +280,7 @@ void winSituation()
             else
             {
                 printf(" | %2d", winSituation[i][j]);
-                if (j == 3)
+                if (j == row-1)
                 {
                     printf(" |");
                 }
@@ -281,7 +294,7 @@ void winSituation()
 int main()
 {
     system("cls");
-    
+
     int arrow;
     int move;
     int level;
@@ -304,7 +317,7 @@ int main()
             printf(" Enter 3 : For level 3 (Hard)\n");
             level = getNum();
             ANSI_COLOR_RESET;
-            
+
             if (level == 49)
             {
                 move = 100;
@@ -338,7 +351,7 @@ int main()
         while (!winning(arr))
         {
             system("cls");
-            printf(ANSI_COLOR_RED " Hello %s %s, Move remaining : %d \n" ANSI_COLOR_RESET, name,surname, M_remain);
+            printf(ANSI_COLOR_RED " Hello %s %s, Move remaining : %d \n" ANSI_COLOR_RESET, name, surname, M_remain);
             if (M_remain < 1)
                 break;
             displayMatrix(u_num);
